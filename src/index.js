@@ -1,6 +1,4 @@
-import appStyle from "./style/hellow.module.css"
+import App from "./app"
 
-const App = document.getElementById("app")
-
-App.classList.add(appStyle.appFont)
-App.innerHTML = `<div class="hellow">Vanilla template</div>`
+// eslint-disable-next-line no-new
+new App()
