@@ -1,4 +1,4 @@
 import App from "./app"
 
 // eslint-disable-next-line no-new
-new App()
+new App(document.getElementById("app"))
