@@ -1,22 +1,51 @@
 import Component from "../../core/Component"
 
 export default class ToDo extends Component {
+    setup() {
+        this.state = {
+            modify: false,
+        }
+    }
+
     template() {
         const { text, value, id } = this.props.item
-        return `<div data-id="${id}">
+        const { modify } = this.state
+        return `<div id="todo-${id}">
                     <button class="toggle-btn">${value ? "✅" : "⬜️"}</button>
-                    <span>${text}</span>
+                    
+                    ${
+                        modify
+                            ? `<input type="text" value="${text}" id="update-todo-${id}"/><button class="update-btn">📝</button>`
+                            : `<span>${text}</span><button class="modify-btn">📝</button>`
+                    }
+                    
                     <button class="delete-btn">❌</button>
                 </div>`
     }
 
     setEvent() {
-        const { toggleItem, deleteItem } = this.props
-        this.addEvent("click", ".toggle-btn", ({ target }) => {
-            toggleItem(Number(target.closest("[data-id]").dataset.id))
+        const { toggleItem, updateItem, deleteItem } = this.props
+        const { id } = this.props.item
+
+        this.addEvent("click", ".toggle-btn", () => {
+            toggleItem(id)
         })
-        this.addEvent("click", ".delete-btn", ({ target }) => {
-            deleteItem(Number(target.closest("[data-id]").dataset.id))
+        this.addEvent("click", ".modify-btn", () => {
+            this.setState({ ...this.state, modify: true })
+        })
+
+        this.addEvent("click", ".update-btn", () => {
+            updateItem(id, document.querySelector(`#update-todo-${id}`).value)
+            this.setState({ ...this.state, modify: false })
+        })
+        this.addEvent("keypress", `#update-todo-${id}`, ({ key }) => {
+            if (key !== "Enter") return false
+            updateItem(id, document.querySelector(`#update-todo-${id}`).value)
+            this.setState({ ...this.state, modify: false })
+        })
+
+        this.addEvent("click", ".delete-btn", () => {
+            deleteItem(id)
         })
     }
 }

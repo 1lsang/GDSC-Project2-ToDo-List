@@ -15,9 +15,9 @@ export default class App extends Component {
     // eslint-disable-next-line class-methods-use-this
     template() {
         return `
-            <header component="category">여기에 카테고리</header>
+            <header component="category">할일</header>
             <main component="todo"></main>
-            <footer component="footer">여기에 푸터</footer>
+            <footer component="footer">할일 ${this.state.items.length}개</footer>
         `
     }
 
@@ -42,6 +42,7 @@ export default class App extends Component {
                 new ToDo(todo, {
                     item,
                     toggleItem: (id) => this.toggleItem(id),
+                    updateItem: (id, input) => this.updateItem(id, input),
                     deleteItem: (id) => this.deleteItem(id),
                 })
         )
@@ -67,6 +68,20 @@ export default class App extends Component {
         this.setState({ items })
         localStorage.setItem("items", JSON.stringify(this.state.items))
         console.log(this.state)
+    }
+
+    updateItem(id, input) {
+        if (input === "") {
+            this.deleteItem(id)
+            return false
+        }
+        const { items } = this.state
+        const index = items.findIndex((item) => item.id === id)
+        items[index].text = input
+        this.setState({
+            items: [...items],
+        })
+        localStorage.setItem("items", JSON.stringify(this.state.items))
     }
 
     deleteItem(id) {
