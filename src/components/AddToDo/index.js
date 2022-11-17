@@ -1,11 +1,14 @@
 /* eslint-disable class-methods-use-this */
 import Component from "../../core/Component"
+import styles from "./index.module.css"
 
 export default class AddToDo extends Component {
     template() {
         return `
-        <input id="input-todo" type="text" placeholder="할 일"/>
-        <button id="add-todo">➕</button>
+        <div class="${styles.AddToDo}">
+            <input id="input-todo" class="${styles.inputTodo}" type="text" placeholder="할 일"/>
+            <button id="add-todo">➕</button>
+        </div>
         `
     }
 

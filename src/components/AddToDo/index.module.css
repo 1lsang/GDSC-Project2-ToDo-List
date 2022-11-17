@@ -1,0 +1,16 @@
+.AddToDo {
+    display: flex;
+    margin: 2rem 1.5rem;
+    /* margin-top: 2rem; */
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background-color: white;
+    overflow: hidden;
+}
+
+.inputTodo {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: black;
+}

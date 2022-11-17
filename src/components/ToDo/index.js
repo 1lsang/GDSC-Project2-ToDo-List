@@ -1,4 +1,5 @@
 import Component from "../../core/Component"
+import styles from "./index.module.css"
 
 export default class ToDo extends Component {
     setup() {
@@ -10,13 +11,15 @@ export default class ToDo extends Component {
     template() {
         const { text, value, id } = this.props.item
         const { modify } = this.state
-        return `<div id="todo-${id}">
-                    <button class="toggle-btn">${value ? "✅" : "⬜️"}</button>
+        return `<div class="${styles.todo}" id="todo-${id}">
+                    <button class="toggle-btn ${styles.toggleButton}">${
+            value ? "✅" : "⬜️"
+        }</button>
                     
                     ${
                         modify
-                            ? `<input type="text" value="${text}" id="update-todo-${id}"/><button class="update-btn">📝</button>`
-                            : `<span>${text}</span><button class="modify-btn">📝</button>`
+                            ? `<input type="text" value="${text}" class="${styles.todoContent}" id="update-todo-${id}"/><button class="update-btn">📝</button>`
+                            : `<span class="todo-content ${styles.todoContent}">${text}</span>`
                     }
                     
                     <button class="delete-btn">❌</button>
@@ -30,8 +33,9 @@ export default class ToDo extends Component {
         this.addEvent("click", ".toggle-btn", () => {
             toggleItem(id)
         })
-        this.addEvent("click", ".modify-btn", () => {
+        this.addEvent("click", ".todo-content", () => {
             this.setState({ ...this.state, modify: true })
+            document.querySelector(`#update-todo-${id}`).select()
         })
 
         this.addEvent("click", ".update-btn", () => {

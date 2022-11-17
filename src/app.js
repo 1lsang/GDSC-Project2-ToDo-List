@@ -15,7 +15,7 @@ export default class App extends Component {
     // eslint-disable-next-line class-methods-use-this
     template() {
         return `
-            <header component="category">할일</header>
+            <header component="category"></header>
             <main component="todo"></main>
             <footer component="footer">할일 ${this.state.items.length}개</footer>
         `

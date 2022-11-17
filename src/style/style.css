@@ -1,0 +1,17 @@
+body {
+    background-color: #333;
+    color: white;
+}
+
+#app {
+    height: 100%;
+}
+
+footer {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
